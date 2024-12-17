@@ -80,6 +80,8 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet weak var noUIButton: UIButton!
+    @IBOutlet weak var yesUIButton: UIButton!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -102,6 +104,7 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = true
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        
     }
     
     // MARK: - Custom Methods
@@ -143,6 +146,9 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func showAnswerResult(isCorrect: Bool) {
+        noUIButton.isEnabled = false
+        yesUIButton.isEnabled = false
+        
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.cornerRadius = 20
@@ -156,6 +162,9 @@ final class MovieQuizViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
             self.imageView.layer.borderColor = UIColor.clear.cgColor
+            
+            self.noUIButton.isEnabled = true
+            self.yesUIButton.isEnabled = true
         }
     }
     
