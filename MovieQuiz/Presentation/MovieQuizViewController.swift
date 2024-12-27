@@ -131,7 +131,9 @@ final class MovieQuizViewController: UIViewController {
         let action = UIAlertAction(
             title: result.buttonText,
             style: .default
-        ) { _ in
+        ) { [weak self] _ in
+            guard let self else { return }
+            
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
@@ -159,7 +161,9 @@ final class MovieQuizViewController: UIViewController {
         }
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self]  in
+            guard let self else { return }
+            
             self.showNextQuestionOrResults()
             self.imageView.layer.borderColor = UIColor.clear.cgColor
             
