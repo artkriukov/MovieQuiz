@@ -80,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				ACB3F3362D215FC200DB06F9 /* QuestionFactory.swift */,
-				ACB3F3382D21627E00DB06F9 /* Models */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -93,6 +92,15 @@
 				ACB3F33D2D2162BF00DB06F9 /* QuizQuestion.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ACB3F33F2D21639700DB06F9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AD1ABAB12831907B00B3E448 /* AppDelegate.swift */,
+				AD1ABAB32831907B00B3E448 /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		AD1ABAA52831907B00B3E448 = {
@@ -114,9 +122,9 @@
 		AD1ABAB02831907B00B3E448 /* MovieQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				ACB3F3382D21627E00DB06F9 /* Models */,
+				ACB3F33F2D21639700DB06F9 /* App */,
 				ACB3F3352D215F8500DB06F9 /* Services */,
-				AD1ABAB12831907B00B3E448 /* AppDelegate.swift */,
-				AD1ABAB32831907B00B3E448 /* SceneDelegate.swift */,
 				ADF0CF75283FDAA10075F54D /* Helpers */,
 				8F4738322848DE2A005DF65E /* Presentation */,
 				8F4738332848DE46005DF65E /* Resources */,
