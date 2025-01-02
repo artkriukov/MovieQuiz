@@ -21,6 +21,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.layer.cornerRadius = 20
         
         alertPresenter = AlertPresenter(viewController: self)
         
@@ -30,6 +31,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         questionFactory.requestNextQuestion()
     }
+    
+
     
     // MARK: - QuestionFactoryDelegate
     
@@ -111,10 +114,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             let bestGameDateString = bestRecord?.date.dateTimeString
             
+            let bestCorrect = bestRecord?.correct ?? 0
+            let bestTotal = bestRecord?.total ?? 0
+            let bestDate = bestGameDateString ?? "неизвестно"
+            
             let text = """
                         Ваш результат: \(correctAnswers)/\(questionsAmount)
                         Количество сыгранных квизов: \(gamesPlayed)
-                        Рекорд: \(bestRecord!.correct)/\(bestRecord!.total) (\(bestGameDateString ?? ""))
+                        Рекорд: \(bestCorrect)/\(bestTotal) (\(bestDate))
                         Средняя точность: \(String(format: "%.2f", totalAccuracy))%
                         """
             
