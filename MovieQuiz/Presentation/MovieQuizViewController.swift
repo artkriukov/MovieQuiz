@@ -6,9 +6,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
-    @IBOutlet weak var noUIButton: UIButton!
-    @IBOutlet weak var yesUIButton: UIButton!
-    
+    @IBOutlet private weak var noUIButton: UIButton!
+    @IBOutlet private weak var yesUIButton: UIButton!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     // MARK: - Custom properties
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -151,6 +151,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         
         alertPresenter?.showAlert(model: alertModel)
+    }
+    
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false 
+        activityIndicator.startAnimating()
     }
 }
 
