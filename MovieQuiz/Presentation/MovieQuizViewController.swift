@@ -32,8 +32,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.loadData()
     }
     
-
-    
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -57,21 +55,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
-    // MARK: - IBAction
-    @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion else { return }
-        let givenAnswer = false
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-    }
-    
-    @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion else { return }
-        let givenAnswer = true
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-        
-    }
+
     
     // MARK: - Custom Methods
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
@@ -166,8 +150,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.startAnimating()
     }
     
+    private func hideLoadingIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
+    
     private func showNetworkError(message: String) {
-        //hideLoadingIndicator() // скрываем индикатор загрузки
+        hideLoadingIndicator()
         
         let alertModel = AlertModel(
             title: "Ошибка",
@@ -178,10 +167,28 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 self.currentQuestionIndex = 0
                 self.correctAnswers = 0
                 
-                self.questionFactory?.requestNextQuestion()
+                self.questionFactory?.loadData()
             }
         
         alertPresenter?.showAlert(model: alertModel)
     }
+    
+    // MARK: - IBAction
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        guard let currentQuestion else { return }
+        let givenAnswer = false
+        
+        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+    }
+
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        guard let currentQuestion else { return }
+        let givenAnswer = true
+        
+        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        
+    }
+
 }
+
 
