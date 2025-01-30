@@ -37,25 +37,3 @@ struct MostPopularMovie: Codable {
         case imageURL = "image"
     }
 }
-
-
-
-/*
-{
-    "errorMessage" : "",
-    "items" : [
-        {
-            "crew" : "Dan Trachtenberg (dir.), Amber Midthunder, Dakota Beavers",
-            "fullTitle" : "Prey (2022)",
-            "id" : "tt11866324",
-            "imDbRating" : "7.2",
-            "imDbRatingCount" : "93332",
-            "image" : "https://m.media-amazon.com/images/M/MV5BMDBlMDYxMDktOTUxMS00MjcxLWE2YjQtNjNhMjNmN2Y3ZDA1XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_Ratio0.6716_AL_.jpg",
-            "rank" : "1",
-            "rankUpDown" : "+23",
-            "title" : "Prey",
-            "year" : "2022"
-        }
-    ]
-}
-*/
