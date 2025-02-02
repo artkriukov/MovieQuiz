@@ -9,7 +9,7 @@ import UIKit
 
 class AlertPresenter {
     private weak var viewController: UIViewController?
-    
+    private let presenter = MovieQuizPresenter()
     init(viewController: UIViewController) {
         self.viewController = viewController
     }
@@ -24,8 +24,9 @@ class AlertPresenter {
         let action = UIAlertAction(
             title: model.buttonText,
             style: .default
-        ) { _ in
-            model.completion?()
+        ) { [weak self] _ in
+            guard let self else { return }
+            self.presenter.resetQuestionIndex()
         }
         
         alert.addAction(action)
