@@ -10,7 +10,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private weak var yesUIButton: UIButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     // MARK: - Custom properties
-    private var correctAnswers = 0
     
     private var questionFactory: QuestionFactoryProtocol?
     
@@ -55,7 +54,23 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         counterLabel.text = step.questionNumber
     }
     
+    private func showNextQuestionOrResults() {
+        if presenter.isLastQuestion() {
+            let text = "Вы ответили на \(presenter.correctAnswers) из 10, попробуйте еще раз!"
+
+            let viewModel = QuizResultsViewModel(
+                title: "Этот раунд окончен!",
+                text: text,
+                buttonText: "Сыграть ещё раз")
+            show(quiz: viewModel)
+        } else {
+            presenter.switchNextQuestionIndex()
+            questionFactory?.requestNextQuestion()
+        }
+    }
+    
     func showAnswerResult(isCorrect: Bool) {
+        
         noUIButton.isEnabled = false
         yesUIButton.isEnabled = false
         
@@ -76,7 +91,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.noUIButton.isEnabled = true
             self.yesUIButton.isEnabled = true
             
-            self.presenter.correctAnswers = self.correctAnswers
+            self.presenter.correctAnswers = presenter.correctAnswers
             self.presenter.questionFactory = self.questionFactory
             presenter.showNextQuestionOrResults()
         }
@@ -92,8 +107,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         ) { [weak self] in
             guard let self else { return }
             
-            self.presenter.resetQuestionIndex()
-            self.correctAnswers = 0
+            self.presenter.restartGame()
             self.questionFactory?.requestNextQuestion()
         }
         
@@ -119,8 +133,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             buttonText: "Попробовать ещё раз") { [weak self] in
                 guard let self else { return }
                 
-                self.presenter.resetQuestionIndex()
-                self.correctAnswers = 0
+                self.presenter.restartGame()
                 
                 self.questionFactory?.loadData()
             }

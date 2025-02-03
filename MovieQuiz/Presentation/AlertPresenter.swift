@@ -26,7 +26,7 @@ class AlertPresenter {
             style: .default
         ) { [weak self] _ in
             guard let self else { return }
-            self.presenter.resetQuestionIndex()
+            self.presenter.restartGame()
         }
         
         alert.addAction(action)
