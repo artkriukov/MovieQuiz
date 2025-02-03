@@ -65,55 +65,26 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         
         if isCorrect {
-            correctAnswers += 1
+            presenter.correctAnswers += 1
         }
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self]  in
             guard let self else { return }
             
-            self.showNextQuestionOrResults()
             self.imageView.layer.borderColor = UIColor.clear.cgColor
-            
             self.noUIButton.isEnabled = true
             self.yesUIButton.isEnabled = true
+            
+            self.presenter.correctAnswers = self.correctAnswers
+            self.presenter.questionFactory = self.questionFactory
+            presenter.showNextQuestionOrResults()
         }
     }
     
-    private func showNextQuestionOrResults() {
-        if presenter.isLastQuestion() {
-            statisticService.store(correct: correctAnswers, total: presenter.questionsAmount)
-            
-            let gamesPlayed = statisticService.gamesCount
-            let bestRecord = statisticService.bestGame
-            let totalAccuracy = statisticService.totalAccuracy
-            
-            let bestGameDateString = bestRecord?.date.dateTimeString
-            
-            let bestCorrect = bestRecord?.correct ?? 0
-            let bestTotal = bestRecord?.total ?? 0
-            let bestDate = bestGameDateString ?? "неизвестно"
-            
-            let text = """
-                        Ваш результат: \(correctAnswers)/\(presenter.questionsAmount)
-                        Количество сыгранных квизов: \(gamesPlayed)
-                        Рекорд: \(bestCorrect)/\(bestTotal) (\(bestDate))
-                        Средняя точность: \(String(format: "%.2f", totalAccuracy))%
-                        """
-            
-            let viewModel = QuizResultsViewModel(
-                title: "Этот раунд окончен!",
-                text: text,
-                buttonText: "Сыграть ещё раз")
-            show(quiz: viewModel)
-        }
-        else {
-            presenter.switchNextQuestionIndex()
-            questionFactory?.requestNextQuestion()
-        }
-    }
     
-    private func show(quiz result: QuizResultsViewModel) {
+    
+    func show(quiz result: QuizResultsViewModel) {
         let alertModel = AlertModel(
             title: result.title,
             message: result.text,

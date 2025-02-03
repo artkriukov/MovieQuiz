@@ -11,15 +11,18 @@ final class MovieQuizPresenter {
     
     private var currentQuestionIndex = 0
     let questionsAmount: Int = 10
+    var correctAnswers = 0
     
     var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
+    let statisticService: StatisticService = StatisticServiceImpl()
+    var questionFactory: QuestionFactoryProtocol?
     
     func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
-                image: UIImage(data: model.image) ?? UIImage(),
-                question: model.text,
-                questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+            image: UIImage(data: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     func isLastQuestion() -> Bool {
@@ -50,6 +53,39 @@ final class MovieQuizPresenter {
         
         DispatchQueue.main.async { [weak self] in
             self?.viewController?.show(quiz: viewModel)
+        }
+    }
+    
+    func showNextQuestionOrResults() {
+        if isLastQuestion() {
+            statisticService.store(correct: correctAnswers, total: self.questionsAmount)
+            
+            let gamesPlayed = statisticService.gamesCount
+            let bestRecord = statisticService.bestGame
+            let totalAccuracy = statisticService.totalAccuracy
+            
+            let bestGameDateString = bestRecord?.date.dateTimeString
+            
+            let bestCorrect = bestRecord?.correct ?? 0
+            let bestTotal = bestRecord?.total ?? 0
+            let bestDate = bestGameDateString ?? "неизвестно"
+            
+            let text = """
+                        Ваш результат: \(correctAnswers)/\(questionsAmount)
+                        Количество сыгранных квизов: \(gamesPlayed)
+                        Рекорд: \(bestCorrect)/\(bestTotal) (\(bestDate))
+                        Средняя точность: \(String(format: "%.2f", totalAccuracy))%
+                        """
+            
+            let viewModel = QuizResultsViewModel(
+                title: "Этот раунд окончен!",
+                text: text,
+                buttonText: "Сыграть ещё раз")
+            viewController?.show(quiz: viewModel)
+        }
+        else {
+            self.switchNextQuestionIndex()
+            questionFactory?.requestNextQuestion()
         }
     }
     
