@@ -130,11 +130,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         statisticService.store(correct: correctAnswers, total: questionsAmount)
 
         let bestGame = statisticService.bestGame
-
+        
         let totalPlaysCountLine = "Количество сыгранных квизов: \(statisticService.gamesCount)"
         let currentGameResultLine = "Ваш результат: \(correctAnswers)\\\(questionsAmount)"
-        let bestGameInfoLine = "Рекорд: \(bestGame?.correct)\\\(bestGame?.total)"
-        + " (\(bestGame?.date.dateTimeString))"
+        let bestGameInfoLine = "Рекорд: \(bestGame?.correct ?? 0)\\\(bestGame?.total ?? 0)"
+        + " (\(bestGame?.date.dateTimeString ?? "1970:01:01 00:00:00"))"
         let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
 
         let resultMessage = [
