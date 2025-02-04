@@ -49,22 +49,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     func show(quiz result: QuizResultsViewModel) {
-        let message = presenter.makeResultsMessage()
-        
-        let alert = UIAlertController(
-            title: result.title,
-            message: message,
-            preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            
-            self.presenter.restartGame()
-        }
-        
-        alert.addAction(action)
-        
-        self.present(alert, animated: true, completion: nil)
+        presenter.proceedToNextQuestionOrResults()
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {

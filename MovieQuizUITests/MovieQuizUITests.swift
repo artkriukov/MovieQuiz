@@ -85,7 +85,7 @@ final class MovieQuizUITests: XCTestCase {
             sleep(2)
         }
         
-        let alert = app.alerts["Game results"]
+        let alert = app.alerts["quizResultAlert"]
         alert.buttons.firstMatch.tap()
         
         sleep(2)

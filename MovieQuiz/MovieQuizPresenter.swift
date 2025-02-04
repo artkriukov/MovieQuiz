@@ -111,17 +111,27 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     }
 
-    private func proceedToNextQuestionOrResults() {
+    func proceedToNextQuestionOrResults() {
         if self.isLastQuestion() {
-            let text = correctAnswers == self.questionsAmount ?
-            "Поздравляем, вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
+            let text = makeResultsMessage()
 
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
-                buttonText: "Сыграть ещё раз")
-                viewController?.show(quiz: viewModel)
+                buttonText: "Сыграть ещё раз",
+                completion: nil
+            )
+
+            // Показать результаты через AlertPresenter
+            let alertPresenter = AlertPresenter(viewController: self.viewController as! UIViewController)
+            alertPresenter.showAlert(model: AlertModel(
+                title: viewModel.title,
+                message: viewModel.text,
+                buttonText: viewModel.buttonText,
+                completion: { [weak self] in
+                    self?.restartGame()
+                })
+            )
         } else {
             self.switchToNextQuestion()
             questionFactory?.requestNextQuestion()
