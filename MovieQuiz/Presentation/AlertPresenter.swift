@@ -24,8 +24,9 @@ class AlertPresenter {
         let action = UIAlertAction(
             title: model.buttonText,
             style: .default
-        ) 
+        )
         
+        alert.view.accessibilityIdentifier = "quizResultAlert"
         alert.addAction(action)
         viewController?.present(alert, animated: true, completion: nil)
     }
