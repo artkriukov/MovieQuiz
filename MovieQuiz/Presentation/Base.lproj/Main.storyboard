@@ -37,8 +37,9 @@
                                                 <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="1/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Igl-BZ-MMO" userLabel="Index Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" restorationIdentifier="Index" text="1/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Igl-BZ-MMO" userLabel="Index Label">
                                                 <rect key="frame" x="167.66666666666663" y="0.0" width="167.33333333333337" height="23.333333333333332"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Index"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
@@ -62,7 +63,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="yF3-h5-kGA">
                                         <rect key="frame" x="0.0" y="658" width="335" height="60"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1B-Pn-RZ1" userLabel="No button">
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="No" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1B-Pn-RZ1" userLabel="No button">
                                                 <rect key="frame" x="0.0" y="0.0" width="157.66666666666666" height="60"/>
                                                 <color key="backgroundColor" name="YP White"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="No"/>
@@ -80,7 +81,7 @@
                                                     <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x3r-WG-M8H"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-CC-1oV" userLabel="Yes button">
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Yes" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-CC-1oV" userLabel="Yes button">
                                                 <rect key="frame" x="177.66666666666663" y="0.0" width="157.33333333333337" height="60"/>
                                                 <color key="backgroundColor" name="YP White"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="Yes"/>
